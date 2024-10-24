@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="topnav">
+  <a href="/player">PLAYER</a>
+  <a href="/add">ADD</a>
+  <a href="/delete" style="color: #6439FF">DELETE</a>
+  <div class="topnav-right">
+    <a href="/logout">LOG OUT</a>
+</div>
+</div>
+
+  {% for playlist in playlists %}
+  <details class="delete-dashboard">
+
+    <summary style="display: flex; justify-content: space-between; width: 100%; margin-right: auto;">
+      {{ playlist }} 
+
+      <form action="{{ url_for('delete') }}" method="POST" novalidate>   
+        {{ delete_form.hidden_tag() }}   
+        {{ delete_form.delete_playlist_button(class="button-style") }}    
+        <!-- niewidoczne pole - przesyła playlist.id do backendu -->
+        <input type="hidden" name="playlist_id" value="{{ playlist.id }}">
+
+      </form>
+    </summary>
+
+ 
+
+    {% set songs_list = songs | selectattr('playlist_id', 'equalto', playlist.id) | list %}
+    <ol>
+      {% for song in songs_list %}
+      <div class="aliner">
+        <li>
+          {{ song }}
+        </li>
+        
+        <span class="stars" data-stars='{{ song.grade }}'></span>
+
+        <form action="{{ url_for('delete') }}" method="POST" novalidate>
+          {{ delete_form.hidden_tag() }}
+          <!-- niewidoczne pole - przesyła song.id do backendu -->
+          <input type="hidden" name="song_id" value="{{ song.id }}">
+          {{ delete_form.delete_song_button(class="button-style") }}
+        </form>
+
+      </div>
+        {% endfor %}
+    </ol>
+
+    
+  </details>
+  {% endfor %}
+
+
+{% endblock %}

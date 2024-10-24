@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block content %}
+    
+    <div class="wrapper">
+
+        <div class="text-container">
+            <div class="text-line" style="color: rgb(26,5,65);">Create your own playlist</div>
+            <div class="text-line" style="color: hsl(0, 0%, 100%)">Add your favourite songs</div>
+            <div class="text-line" style="color: rgb(26,5,65);">Play music without adds</div>
+            <div class="text-line" style="color: hsl(0, 0%, 100%)">Share with others!</div>
+        </div>
+
+
+        <div class="login-container">
+
+            <h1 style="font-size: 20px;">Have an account?</h1>
+
+            <form action="" method="POST" novalidate>
+                {{ login_form.hidden_tag() }}
+                <p>
+                    {{ login_form.name.label }}<br>
+                    {{ login_form.name(class='form-field') }}<br>
+
+                    {% for error in login_form.name.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+                </p>
+                <p>
+                    {{ login_form.password.label }}<br>
+                    {{ login_form.password(class='form-field')}}
+
+                    {% for error in login_form.password.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+                </p>
+                <p>{{ login_form.remember_me() }} {{ login_form.remember_me.label }}</p>
+                <p>{{ login_form.submit(class='button-style') }}</p>
+
+                <p>Do not have an account?</p>
+                <p><a class='button-style' href="{{ url_for('register') }}">SIGN UP</a></p>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

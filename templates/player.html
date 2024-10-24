@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <div class="topnav">
+        <a href="/player" style="color: #6439FF">PLAYER</a>
+        <a href="/add">ADD</a>
+        <a href="/delete">DELETE</a>
+        <div class="topnav-right">
+            <a href="/logout">LOG OUT</a>
+        </div>
+    </div>
+
+    <div class="wrapper">
+
+        <div class="users-list-container">
+            {% for user in users %}
+            <details>
+                <summary class="button-style">{{ user.name }}'s playlists</summary>
+                <ol>
+                    {% for playlist in user.playlists %}
+                            <strong>{{ playlist }}</strong>
+                            <ol>
+                                {% set playlist_songs = songs | selectattr('playlist_id', 'equalto', playlist.id) | list %}
+                                {% for song in playlist_songs %}
+                                    <li>
+                                        <a href="#" onclick="playSong('{{ song.url }}')">{{ song.title }} ({{ song.artist }})</a>
+                                    </li>
+                                {% endfor %}
+                            </ol>
+                    {% endfor %}
+                </ol>
+            </details>
+            {% endfor %}
+        </div>
+
+        <div class="music-player-container" id="musicPlayerContainer">
+            <div class="loading-text" id="loadingText">
+                <p>Select a song from the left container to start playing.</p>
+            </div>
+
+            <iframe 
+                width="100%" 
+                height="100%" 
+                src=""
+                frameborder="0">                    
+            </iframe>  
+        </div>
+
+    </div>
+{% endblock %}

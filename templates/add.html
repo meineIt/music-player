@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="topnav">
+    <a href="/player">PLAYER</a>
+    <a href="/add" style="color: #6439FF">ADD</a>
+    <a href="/delete">DELETE</a>
+    <div class="topnav-right">
+        <a href="/logout">LOG OUT</a>
+    </div>
+</div>
+
+<div class="wrapper">
+
+    <div class="add-container">
+
+        <h1 style="font-size: 25px;">NEW SONG</h1>
+
+        <form action="{{ url_for('add') }}" method="POST" novalidate>
+            {{ add_song_form.hidden_tag() }}
+            <p>
+                {{ add_song_form.artist_field.label }}<br>
+                {{ add_song_form.artist_field(class='form-field') }}<br>
+            </p>
+            <p>
+                {{ add_song_form.title_field.label }}<br>
+                {{ add_song_form.title_field(class='form-field') }}<br>
+            </p>
+            <p>
+                {{ add_song_form.url_field.label }}<br>
+                {{ add_song_form.url_field(class='form-field') }}<br>
+            </p>
+            <p>
+                {% for star in add_song_form.grade_field %}
+                    <div class="rating">
+                        {{ star(class='form-field') }}
+                        {{ star.label }}
+                    </div>
+                {% endfor %}
+            </p>
+            <p>
+                {{ add_song_form.playlist_field.label }}<br>
+                {{ add_song_form.playlist_field(class='form-field') }}                    
+            </p>
+            <p>{{ add_song_form.submit_field(class='button-style') }}</p>
+        </form>
+    </div>
+
+    <div class="add-container">
+
+        <h1 style="font-size: 25px;">NEW PLAYLIST</h1>
+
+        <form action="{{ url_for('add') }}" method="POST" novalidate>
+            {{ add_playlist_form.hidden_tag() }}
+            <p>
+                {{ add_playlist_form.playlist_name_field.label }}<br>
+                {{ add_playlist_form.playlist_name_field(class='form-field') }}<br>
+            </p>            
+            
+            {{ add_playlist_form.users_field.label }}
+            {% for subfield in add_playlist_form.users_field %}
+            <ol>
+                <li style="display: flex; align-items: center;">
+                    <div style="margin-right: 5px;">
+                        {{ subfield() }}
+                    </div>
+                    <div>
+                        {{ subfield.label }}
+                    </div>
+                </li>
+            </ol>
+            {% endfor %}
+
+            <p>{{ add_playlist_form.submit_field(class='button-style') }}</p>
+        </form>
+        </div>
+
+</div>
+{% endblock %}
+

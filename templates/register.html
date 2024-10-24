@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <div class="topnav">
+        <a href="/player">PLAYER</a>
+        <a href="/add">ADD</a>
+        <a href="/delete">DELETE</a>
+    </div>
+
+
+    <div class="add-container">
+
+        <h1 style="font-size: 25px;">REGISTER</h1>
+
+        <form action="" method="POST" novalidate>
+            {{ register_form.hidden_tag() }}
+            <p>
+                {{ register_form.name.label }}<br>
+                {{ register_form.name(class='form-field') }}<br>
+                <!-- co to ? -->
+                {% for error in register_form.name.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </p>
+            <p>
+                {{ register_form.email.label }}<br>
+                {{ register_form.email(class='form-field')}}
+                <!-- co to ? -->
+                {% for error in register_form.email.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </p>
+            <p>
+                {{ register_form.password.label }}<br>
+                {{ register_form.password(class='form-field')}}
+                <!-- co to ? -->
+                {% for error in register_form.password.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </p>
+            <p>
+                {{ register_form.password2.label }}<br>
+                {{ register_form.password2(class='form-field')}}
+                <!-- co to ? -->
+                {% for error in register_form.password2.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </p>
+            <p>{{ register_form.submit(class='button-style') }}</p>
+
+            <p>Have an account?</p>
+            <p><a class='button-style' href="{{ url_for('login') }}">Log in!</a></p>
+        </form>
+    </div>
+
+{% endblock %}
