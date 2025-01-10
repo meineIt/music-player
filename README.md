@@ -52,6 +52,7 @@ music-player/
 ├── forms.py
 ├── database.py
 ├── app.py
+├── README.md
 ├── LICENSE
 ├── .gitignore          
 ├── templates/               
